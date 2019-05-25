@@ -15,6 +15,15 @@ It is **deeply** inspired by old Demoscene library **TinyPTC** by Gaffer.
 
 ## Current implementations
 
+Anybody trying to add an implementation should try to adhere to the [KISS](https://en.wikipedia.org/wiki/KISS_principle) principle:
+
+* Keep the external dependencies to the minimum, if not none. The ideal usage of
+the library should be a single include.
+
+* Not make it too generic, full of options and supporting many pixel formats.
+We are only targeting typical RGB(A) and Indexed color modes, 8 bits per component.
+
+
 C |    |    status
 -----|-------------|-------
 [PNG](https://github.com/feiss/zero/tree/master/src/c/png)  | Writes frames to PNG files | working
