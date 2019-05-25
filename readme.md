@@ -15,13 +15,14 @@ It is **deeply** inspired by old Demoscene library **TinyPTC** by Gaffer.
 
 ## Current implementations
 
-Name | Description | Status
+C |    |    status
 -----|-------------|-------
-C | |
 [PNG](https://github.com/feiss/zero/tree/master/src/c/png)  | Writes frames to PNG files | working
 [wingdi](https://github.com/feiss/zero/tree/master/src/c/wingdi) | Windows GDI | working
 [wingl](https://github.com/feiss/zero/tree/master/src/c/wingl) | Windows OpenGL | planned
-Javascript  |  |
+
+Javascript  |   | status
+-----|-------------|-------
 [canvas](https://github.com/feiss/zero/tree/master/src/js/canvas) | HTML canvas | working
 [WebGL](https://github.com/feiss/zero/tree/master/src/js/webgl) | HTML WebGL | planned
 
