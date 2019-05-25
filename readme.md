@@ -19,8 +19,7 @@ wingl | Windows OpenGL | pending
 
 ## API
 
-* `zero_open (target, width, height, depth, scale)`
-* `zero_update (framebuffer, palette)`
+### `zero_open (target, width, height, depth, scale)`
 
 #### target
 Depending on the implementation used, `target` has different meanings.
@@ -42,6 +41,9 @@ Dimensions of the image, in pixels
 
 Multiplier of `width` and `height`, which affects the dimensions of the output (window, canvas, image file, ...).
 So if you set `scale` to 2, the window/canvas/image will be scaled by 2.
+
+
+### `zero_update (framebuffer, palette)`
 
 #### framebuffer
 
