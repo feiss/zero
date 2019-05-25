@@ -33,14 +33,15 @@ Dimensions of the image, in pixels
 
 #### depth
 
-**1** for indexed images (that need a palette)
-**3** for RGB images
-**4** for RGBA (not supported in all implementations)
+- **1** for indexed images (that need a palette)
+- **3** for RGB images
+- **4** for RGBA (not supported in all implementations)
 
 #### scale
 
 Multiplier of `width` and `height`, which affects the dimensions of the output (window, canvas, image file, ...).
-So if you set `scale` to 2, the window/canvas/image will be scaled by 2.
+So if you set `scale` to 2, the window/canvas/image size will be the double of your frame size.
+
 
 
 ### `zero_update (framebuffer, palette)`
