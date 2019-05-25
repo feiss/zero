@@ -7,6 +7,11 @@ Zero aims to be the solution to this common question...
 ...by gathering different implementations, depending on the platform, language
 or technology you want to use, using only two function calls: `zero_open()` and `zero_update()`.
 
+It can be of many uses: as a learning tool for children, a testbed to implement
+classic or new CG routines, experiment, make apps or games, as some basic examples.
+
+It is **deeply** inspired by old Demoscene library **TinyPTC** by Gaffer.
+
 
 ## Current implementations
 
