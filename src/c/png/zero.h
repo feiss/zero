@@ -15,6 +15,7 @@ int zero_update(void *fb, void *pal);
 // IMPLEMENTATION
 
 static int width, height, depth, scale;
+static void *active_palette;
 static char filename[1000];
 
 void zero_open(char *title, int w, int h, int d, int s){
@@ -34,11 +35,12 @@ int zero_update(void *fb, void *pal){
   void *fb_indexed = 0;
   void *fb_scaled = 0;
   void *frame = fb;
+  active_palette = pal ? pal : active_palette;
   int final_depth = depth == 1 ? 4 : depth;
 
-  if (depth == 1 && pal) {
+  if (depth == 1 && active_palette) {
     unsigned char idx;
-    unsigned char *palette = (unsigned char *)pal;
+    unsigned char *palette = (unsigned char *)active_palette;
     unsigned int color;
     fb_indexed = malloc(width * height * final_depth);
     for (int i = 0; i < width * height; i++) {

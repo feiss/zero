@@ -1,6 +1,5 @@
 #include "../zero.h"
 
-#define makeRGB(r,g,b) (((r)<<16) | ((g)<<8) | (b))
 
 int fb[256 * 256];
 
@@ -9,7 +8,7 @@ void main(void) {
 
   for(int y = 0; y < 256; y++) {
     for(int x = 0; x < 256; x++) {
-      *p = makeRGB(y, x, 255 - x);
+      *p = MAKE_RGB(y, x, 255 - x);
       p++;
     }
   }
