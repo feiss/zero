@@ -12,9 +12,9 @@ or technology you want to use, using only two function calls: `zero_open()` and 
 
 Name | Description | Status
 -----|-------------|-------
-png  | Writes frames to PNG files | working
-wingdi | Windows GDI | working
-wingl | Windows OpenGL | pending
+C [PNG](https://github.com/feiss/zero/tree/master/src/c/png)  | Writes frames to PNG files | working
+C [wingdi](https://github.com/feiss/zero/tree/master/src/c/wingdi) | Windows GDI | working
+C wingl | Windows OpenGL | planned
 
 
 ## API
