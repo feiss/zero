@@ -1,37 +1,55 @@
-# ZERO api
+# ZERO libraries
 
-Zero API is an ultra-simple, basic and old-school graphics API, aimed to be
-an universal, multiplatform and multilanguage way of draw to a window or screen.
+Zero aims to be the solution to this common question...
 
-It is only comprised in three functions (pseudocode):
+> "How can I simply put a pixel on the screen?"
 
-*  createFrameBuffer (width, height, depth) : fb
-*  drawFrameBuffer (fb, dest, [pal])
+...by gathering different implementations, depending on the platform, language
+or technology you want to use, under a common and utterly simple API (pseudocode):
 
-### createFrameBuffer
+* `zero_open (target, width, height, depth, scale)`
+* `zero_update (framebuffer, palette)`
 
-Inputs:
+## Current implementations
 
-* `width` and `height`: dimensions of the frame buffer.
-* `depth`: Bits per pixel of the buffer. It can have on of these values:
-  * 8 for [indexed colored](https://en.wikipedia.org/wiki/Indexed_color) pixels.
-  * 24 for RGB pixels (8 bits per color component, no transparency).
-
-Outputs:
-
-* A memory buffer of `width * height * depth` Bytes set to zero.
+Name | Description | Status
+-----|-------------|-------
+png  | Writes frames to PNG files | working
+wingdi | Windows GDI | working
+wingl | Windows OpenGL | pending
 
 
-### drawFrameBuffer
+## API
 
-Inputs:
+* `zero_open (target, width, height, depth, scale)`
+* `zero_update (framebuffer, palette)`
 
-* `fb`: The frame buffer to draw in the screen
-* `dest`: The destiny. The window, file, draw context, etc. where to draw.
-* `pal`: The palette to use (optional).
+### target
+Depending on the implementation used, `target` has different meanings.
+For example, in Javascript it means a DOM selector;
+in windows GDI it means the title of the window to create;
+in png means a file name, etc.
 
-When the `depth` of the frame buffer is `8`, a palette is needed to paint
-the buffer in the screen. Here a buffer of `n * 3` elements (n colors * (Red, Green, Blue) values).
+### width, height
 
-Palette format: RGB RGB RGB RGB ...
+Dimensions of the image, in pixels
 
+### depth
+
+**1** for indexed images (that need a palette)
+**3** for RGB images
+**4** for RGBA (not supported in all implementations)
+
+### scale
+
+Multiplier of `width` and `height`, which affects the dimensions of the output (window, canvas, image file, ...).
+So if you set `scale` to 2, the window/canvas/image will be scaled by 2.
+
+### framebuffer
+
+Pointer to the image buffer. No checks are done about the format of the buffer content.
+
+### palette
+
+If `depth` is set to **1**, a palette (array of R,G,B items) must be passed.
+Otherwise, this value is ignored.
