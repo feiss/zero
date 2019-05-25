@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Zero canvas - RGB example</title>
+  <script src="../zero.js"></script>
+</head>
+<body>
+  <div id="app"></div>
+<script>
+
+var fb = zero_open('#app', 256, 256, 3, 2);
+
+var x, y, i;
+for (y = 0; y < 256; y++) {
+  for (x = 0; x < 256; x++) {
+    i = (y * 256 + x) * 4;
+    fb.data[i + 0] = y;
+    fb.data[i + 1] = x;
+    fb.data[i + 2] = 255 - x;
+    fb.data[i + 3] = 255;
+  }
+}
+zero_update(fb);
+
+</script>
+
+</body>
+</html>

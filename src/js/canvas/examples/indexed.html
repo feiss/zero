@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Zero canvas - Indexed example</title>
+  <script src="../zero.js"></script>
+</head>
+<body>
+  <div id="app"></div>
+<script>
+var x, y, i;
+
+var fb = zero_open('#app', 256, 256, 1, 2);
+
+var pal = new Array(256 * 3);
+for(i = 0; i < 256; i++){
+  pal[i * 3 + 0] = Math.floor(i / 2 + 128);
+  pal[i * 3 + 1] = Math.floor(i / 2);
+  pal[i * 3 + 2] = 255 - i;
+}
+
+for (y = 0; y < 256; y++) {
+  for (x = 0; x < 256; x++) {
+    fb.data[y * 256 + x] = x;
+  }
+}
+
+zero_update(fb, pal);
+
+</script>
+
+</body>
+</html>
