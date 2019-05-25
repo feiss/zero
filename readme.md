@@ -17,7 +17,7 @@ It is **deeply** inspired by old Demoscene library **TinyPTC** by Gaffer.
 
 Anybody trying to add an implementation should try to adhere to the [KISS](https://en.wikipedia.org/wiki/KISS_principle) principle:
 
-* Keep the external dependencies to the minimum, if not none. The ideal usage of
+* Keep the external dependencies to the minimum, or none. The ideal usage of
 the library should be a single include.
 
 * Not make it too generic, full of options and supporting many pixel formats.
