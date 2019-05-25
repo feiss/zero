@@ -18,5 +18,5 @@ int main(int argc, char **argv){
     }
   }
 
-  return drawFrameBuffer(fb, "example_indexed.png", pal);
+  return drawFrameBuffer(fb, "indexed.png", pal);
 }

@@ -1,3 +1,3 @@
-cc -Ot example_indexed.c && example_indexed
-cc -Ot example_rgb.c && example_rgb
+cc -Ot indexed.c && indexed
+cc -Ot rgb.c && rgb
 del *.obj

@@ -12,5 +12,5 @@ int main(int argc, char **argv){
     }
   }
 
-  return drawFrameBuffer(fb, "example_rgb.png", 0);
+  return drawFrameBuffer(fb, "rgb.png", 0);
 }
