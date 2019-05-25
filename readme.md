@@ -7,20 +7,20 @@ Zero aims to be the solution to this common question...
 ...by gathering different implementations, depending on the platform, language
 or technology you want to use, using only two function calls: `zero_open()` and `zero_update()`.
 
-It can be of many uses: as a learning tool for children, a testbed to implement
-classic or new CG routines, experiment, make apps or games, as some basic examples.
+It can be used as a learning tool for children, a testbed to implement
+classic or new CG routines, experiment, make apps or games, for example.
 
-It is **deeply** inspired by old Demoscene library **TinyPTC** by Gaffer.
+It is **deeply** inspired by the old Demoscene library **TinyPTC** by Gaffer.
 
 
-## Current implementations
+# Current implementations
 
 Anybody trying to add an implementation should try to adhere to the [KISS](https://en.wikipedia.org/wiki/KISS_principle) principle:
 
-* Keep the external dependencies to the minimum, or none. The ideal usage of
+* Keep the external dependencies to a minimum, or none. The ideal usage of
 the library should be a single include.
 
-* Not make it too generic, full of options and supporting many pixel formats.
+* Do not make it too generic, full of options and supporting many pixel formats.
 We are only targeting typical RGB(A) and Indexed color modes, 8 bits per component.
 
 
@@ -48,7 +48,7 @@ in png means a file name, etc.
 
 #### width, height
 
-Dimensions of the image, in pixels
+Dimensions of the image, in pixels.
 
 #### depth
 

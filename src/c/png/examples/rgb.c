@@ -2,7 +2,7 @@
 
 int main(int argc, char **argv){
 
-  unsigned char *fb = (unsigned char *)createFrameBuffer(256, 256, 3);
+  unsigned char fb[256 * 256 * 3];
 
   for(int y = 0; y < 256; y++) {
     for(int x = 0; x < 256; x++) {
@@ -12,5 +12,7 @@ int main(int argc, char **argv){
     }
   }
 
-  return drawFrameBuffer(fb, "rgb.png", 0);
+  zero_open("rgb.png", 256, 256, 3, 1);
+  zero_update(fb, NULL);
+  return 0;
 }

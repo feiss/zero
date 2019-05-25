@@ -3,8 +3,8 @@
 
 int main(int argc, char **argv){
 
-  unsigned char *fb = (unsigned char *)createFrameBuffer(256, 256, 1);
-  unsigned char *pal = calloc(256, 3);
+  unsigned char fb [256 * 256];
+  unsigned char pal[256 * 3];
 
   for(int i = 0; i < 256; i++){
     pal[i * 3 + 0] = i / 2 + 128;
@@ -18,5 +18,7 @@ int main(int argc, char **argv){
     }
   }
 
-  return drawFrameBuffer(fb, "indexed.png", pal);
+  zero_open("indexed.png", 256, 256, 1, 1);
+  zero_update(fb, pal);
+  return 0;
 }
