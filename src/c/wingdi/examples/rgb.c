@@ -5,7 +5,6 @@
 int fb[256 * 256];
 
 void main(void) {
-
   int *p = fb;
 
   for(int y = 0; y < 256; y++) {

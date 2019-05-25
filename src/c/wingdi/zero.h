@@ -3,7 +3,7 @@
 // https://sourceforge.net/projects/tinyptc/
 
 void zero_open(char *title, int w, int h, int d, int s);
-void zero_update(void *fb, char *pal);
+void zero_update(void *fb, void *pal);
 
 // IMPLEMENTATION
 #define WIN32_LEAN_AND_MEAN
@@ -117,7 +117,7 @@ void zero_open(char *title, int w, int h, int d, int s)
 #endif
 }
 
-void zero_update(void *fb, char *pal)
+void zero_update(void *fb, void *pal)
 {
     MSG message;
     active_fb = fb;
