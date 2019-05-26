@@ -1,4 +1,4 @@
-//#define FPS_COUNTER
+#define FPS_COUNTER
 #include "../zero.h"
 
 #define makeRGB(r,g,b) (((r)<<16) | ((g)<<8) | (b))

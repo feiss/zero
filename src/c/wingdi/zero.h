@@ -35,8 +35,15 @@ static LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM l
   {
     case WM_PAINT:
       if (active_fb != 0) {
-        StretchDIBits(hdc, 0, 0, width * scale, height * scale, 0, 0, width,
-        height, active_fb, bitmap_header, DIB_RGB_COLORS, SRCCOPY);
+        StretchDIBits(hdc,
+          0, 0,
+          width * scale,
+          height * scale,
+          0, 0,
+          width, height,
+          active_fb, bitmap_header,
+          DIB_RGB_COLORS,
+          SRCCOPY);
         ValidateRect(wnd, NULL);
       }
       break;
@@ -125,10 +132,10 @@ int zero_update(void *fb, void *pal)
 
   if (pal) {
     RGBQUAD* palette = &bitmap_header->bmiColors[0];
+    RGBQUAD rgb = {0, 0, 0, 0};
     BYTE *pal8 = (BYTE *)pal;
     for (int i = 0; i < 256; i++)
     {
-      RGBQUAD rgb = {0};
       rgb.rgbRed   = pal8[i * 3 + 0];
       rgb.rgbGreen = pal8[i * 3 + 1];
       rgb.rgbBlue  = pal8[i * 3 + 2];
