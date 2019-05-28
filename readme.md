@@ -28,7 +28,7 @@ Javascript  |   | status
 WebGL | HTML WebGL | planned
 
 
-# Contributions
+## Contributions
 
 PRs are very very welcomed. It would be really great to convert this in a bible of how to put pixels in all architectures and languages, and that's something near impossible for a single person (at least for myself).
 
