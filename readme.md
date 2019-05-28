@@ -29,6 +29,7 @@ C |    |    status
 [PNG](https://github.com/feiss/zero/tree/master/src/c/png)  | Writes frames to PNG files | working
 [wingdi](https://github.com/feiss/zero/tree/master/src/c/wingdi) | Windows GDI | working
 wingl | Windows OpenGL | planned
+[linuxfb](https://github.com/feiss/zero/tree/master/src/c/linuxfb) | Linux Framebuffer | working
 
 Javascript  |   | status
 -----|-------------|-------
