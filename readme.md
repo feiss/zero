@@ -5,7 +5,7 @@ Zero aims to be the solution to this common question...
 > "How can I simply put a pixel on the screen?"
 
 ...by gathering different implementations, depending on the platform, language
-or technology you want to use, using only two function calls: `zero_open()` and `zero_update()`.
+or technology you want to use, using only two function calls: `zero_open()` and `zero_update()` (and an additional `zero_close()` is included for some cases that may be necessary).
 
 It can be used as a learning tool for children, a testbed to implement
 classic or new CG routines, experiment, make apps or games, for example.

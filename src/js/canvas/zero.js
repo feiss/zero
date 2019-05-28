@@ -44,3 +44,6 @@ function zero_update(fb, pal) {
   }
   _z.ctx.drawImage(_z.dirtyCtx.canvas, 0, 0, canvas.width, canvas.height);
 }
+
+
+function zero_close() {}

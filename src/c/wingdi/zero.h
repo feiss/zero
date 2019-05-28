@@ -4,6 +4,7 @@
 
 void zero_open(char *title, int w, int h, int d, int s);
 int zero_update(void *fb, void *pal);
+void zero_close() {};
 
 #define MAKE_RGB(r,g,b) (((r)<<16) | ((g)<<8) | (b))
 
