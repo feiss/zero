@@ -44,7 +44,7 @@ void zero_open(char *device, int *w, int *h, int *d, int s, int *line) {
     width = *w = vinfo.xres;
     height = *h = vinfo.yres;
     depth = *d = vinfo.bits_per_pixel / 8;
-		*line = finfo.line_length;
+    *line = finfo.line_length;
     scale = s <= 0 ? 1 : s;
 
     screensize = vinfo.xres * vinfo.yres * vinfo.bits_per_pixel / 8;
