@@ -15,15 +15,6 @@ It is **deeply** inspired by the old Demoscene library **TinyPTC** by Gaffer.
 
 # Current implementations
 
-Anybody trying to add an implementation should try to adhere to the [KISS](https://en.wikipedia.org/wiki/KISS_principle) principle:
-
-* Keep the external dependencies to a minimum, or none. The ideal usage of
-the library should be a single include.
-
-* Do not make it too generic, full of options and supporting many pixel formats.
-We are only targeting typical RGB(A) and Indexed color modes, 8 bits per component.
-
-
 C |    |    status
 -----|-------------|-------
 [PNG](https://github.com/feiss/zero/tree/master/src/c/png)  | Writes frames to PNG files | working
@@ -35,6 +26,22 @@ Javascript  |   | status
 -----|-------------|-------
 [canvas](https://github.com/feiss/zero/tree/master/src/js/canvas) | HTML canvas | working
 WebGL | HTML WebGL | planned
+
+
+# Contributions
+
+PRs are very very welcomed. It would be really great to convert this in a bible of how to put pixels in all architectures and languages, and that's something near impossible for a single person (at least for myself).
+
+Corrections and suggestions are very welcomed too. I'm not an expert in this field and I already assume I'm making lots of mistakes.
+
+Anybody trying to add an implementation should try to adhere to the [KISS](https://en.wikipedia.org/wiki/KISS_principle) principle. Specially, I'd like to:
+
+* Keep the external dependencies to a minimum, or none. The ideal usage of
+the library should be a single include.
+
+* Do not make it too generic, full of options and supporting many pixel formats.
+We are only targeting typical RGB(A) and Indexed color modes, 8 bits per component.
+
 
 
 ## API
