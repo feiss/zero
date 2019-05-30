@@ -1,2 +1,2 @@
-rgb: rgb.o
-	gcc -orgb rgb.c -lglfw -lGL
+rgb: rgb.c
+	gcc -orgb rgb.c -lglfw -lGL -lGLEW
