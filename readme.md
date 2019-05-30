@@ -20,7 +20,7 @@ C |    |    status
 [PNG](https://github.com/feiss/zero/tree/master/src/c/png)  | Writes frames to PNG files | working
 [wingdi](https://github.com/feiss/zero/tree/master/src/c/wingdi) | Windows GDI | working
 wingl | Windows OpenGL | planned
-linuxx11 | Linux X11 | wip
+[linuxx11](https://github.com/feiss/zero/tree/master/src/c/linuxx11) | Linux X11 | working
 linuxgl | Linux OpenGL | wip
 [linuxfb](https://github.com/feiss/zero/tree/master/src/c/linuxfb) | Linux Framebuffer | working
 
