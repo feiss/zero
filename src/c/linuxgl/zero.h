@@ -69,7 +69,9 @@ void initShaders() {
 		"uniform vec2 size;"
 		"out vec4 outColor;"
 		"void main() {"
-		"  outColor = texture2D(texture, gl_FragCoord.xy / size);"
+		"  vec2 uv = gl_FragCoord.xy / size;"
+		"  uv.y = 1.0 - uv.y;"
+		"  outColor = texture2D(texture, uv);"
 		"}";
 
 
