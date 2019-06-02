@@ -116,9 +116,58 @@ MOUSE_ENTER |  none   |  none
 MOUSE_LEAVE |  none   |  none 
 
 
-# Example in pseudocode
+# Examples
 
-This is a basic example of a whole functional drawing program in a 500x500 window/canvas for drawing with mouse, and quits with any key. It's in pseudocode because it could be written in any of the languages supported by the library, just adapting it to the idiosyncrasies of the language.
+They are mostly in pseudocode because it could be written in any of the languages supported by the library, just adapting it to the idiosyncrasies of the language.
+
+### Noise
+
+This example produces an animated random noise. In pseudocode:
+
+```pascal
+include 'zero'
+
+framebuffer = array of 320 x 200 x 4 bytes
+
+function MAIN
+  zero_open("Noise app", 320, 200, 4, 1)
+  
+  while True do
+    for i in framebuffer.length do
+      framebuffer[i] = random(0, 255)
+    end for
+    
+    zero_update(framebuffer, NIL)
+  end while
+  
+end function
+```
+
+In C:
+
+```c
+#include <stdlib.h> // for rand()
+#include "zero.h"
+
+unsigned char framebuffer[320 * 200 * 4];
+
+void main(){
+  
+  zero_open("Noise app", 320, 200, 4, 1);
+  
+  while(1){
+    for (int i = 0; i < 320 * 200 * 4; i++){
+      framebuffer[i] = rand() % 255;
+    }
+    zero_update(framebuffer, NULL);
+  }
+}
+
+```
+
+
+### Drawing
+This is a basic example of a whole functional drawing program in a 500x500 window/canvas for drawing with mouse, and quits with any key. 
 
 ```pascal
 include 'zero'
@@ -127,7 +176,7 @@ run = true
 drawing = false
 framebuffer = array of 500 x 500 x 4 bytes
 
-procedure PROCESS_EVENTS(type, param1, param2)
+function PROCESS_EVENTS(type, param1, param2)
 
   if type is KEY_DOWN then
     run = false
@@ -148,20 +197,20 @@ procedure PROCESS_EVENTS(type, param1, param2)
   
   end if
   
-end procedure
+end function
 
 
-procedure MAIN
+function MAIN
 
   zero_open("Drawing program", 500, 500, 4, 1)
 
   zero_events(PROCESS_EVENTS)
 
-  while run is true
-    zero_update(framebuffer)
+  while run is true do
+    zero_update(framebuffer, NIL)
   end while
 
   zero_close()
 
-end procedure
+end function
 ```
