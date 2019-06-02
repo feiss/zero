@@ -137,10 +137,8 @@ In C:
 
 ```c
 #include "zero.h"
-
-unsigned char framebuffer[320 * 200 * 4];
-
 void main(){
+  unsigned char framebuffer[320 * 200 * 4];
   zero_open("Noise app", 320, 200, 4, 1);
   while(1){
     for (int i = 0; i < 320 * 200 * 4; i++){
