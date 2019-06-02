@@ -9,7 +9,12 @@
   <div id="app"></div>
 <script>
 
+function event_handler(event, param1, param2) {
+  console.log(event, param1, param2);
+}
+
 var fb = zero_open('#app', 256, 256, 3, 1);
+zero_events(event_handler);
 
 function loop() {
   var data = fb.data, noise;
