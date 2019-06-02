@@ -136,15 +136,12 @@ while True do:
 In C:
 
 ```c
-#include <stdlib.h> // for rand()
 #include "zero.h"
 
 unsigned char framebuffer[320 * 200 * 4];
 
 void main(){
-  
   zero_open("Noise app", 320, 200, 4, 1);
-  
   while(1){
     for (int i = 0; i < 320 * 200 * 4; i++){
       framebuffer[i] = rand() % 255;
@@ -170,10 +167,8 @@ function PROCESS_EVENTS(event_type, param1, param2)
     MOUSE_DOWN: drawing = true
     MOUSE_UP: drawing = false
     MOUSE_MOVE: if drawing is true then:
-      // get position in framebuffer
-      idx = (param2 * 500 + param1) * 4
-      // paint pixel with red
-      framebuffer[idx] = 255
+      idx = (param2 * 500 + param1) * 4  // get position in framebuffer
+      framebuffer[idx] = 255  // paint pixel with red
 
 
 function MAIN
