@@ -125,22 +125,12 @@ They are mostly in pseudocode because it could be written in any of the language
 This example produces an animated random noise. In pseudocode:
 
 ```pascal
-include 'zero'
-
 framebuffer = array of 320 x 200 x 4 bytes
-
-function MAIN
-  zero_open("Noise app", 320, 200, 4, 1)
-  
-  while True do
-    for i in framebuffer.length do
-      framebuffer[i] = random(0, 255)
-    end for
-    
-    zero_update(framebuffer, NIL)
-  end while
-  
-end function
+zero_open("Noise app", 320, 200, 4, 1)
+while True do:
+  for i in framebuffer.length do:
+    framebuffer[i] = random(0, 255)
+  zero_update(framebuffer, NIL)
 ```
 
 In C:
@@ -170,47 +160,26 @@ void main(){
 This is a basic example of a whole functional drawing program in a 500x500 window/canvas for drawing with mouse, and quits with any key. 
 
 ```pascal
-include 'zero'
-
 run = true
 drawing = false
 framebuffer = array of 500 x 500 x 4 bytes
 
-function PROCESS_EVENTS(type, param1, param2)
-
-  if type is KEY_DOWN then
-    run = false
-  
-  else if type is MOUSE_DOWN then
-    drawing = true
-    
-  else if type is MOUSE_UP then
-    drawing = false
-    
-  else if event_type is MOUSE_MOVE and drawing then
-    // calculate position in framebuffer, mouse x = param1, mouse y = param2
-    idx = (param2 * 500 + param1) * 4
-    // paint pixel with a gray rgb (100, 100, 100)
-    framebuffer[ idx + 0 ] = 100
-    framebuffer[ idx + 1 ] = 100
-    framebuffer[ idx + 2 ] = 100
-  
-  end if
-  
-end function
+function PROCESS_EVENTS(event_type, param1, param2)
+  case of event_type is:
+    KEY_DOWN: run = false
+    MOUSE_DOWN: drawing = true
+    MOUSE_UP: drawing = false
+    MOUSE_MOVE: if drawing is true then:
+      // get position in framebuffer
+      idx = (param2 * 500 + param1) * 4
+      // paint pixel with red
+      framebuffer[idx] = 255
 
 
 function MAIN
-
   zero_open("Drawing program", 500, 500, 4, 1)
-
   zero_events(PROCESS_EVENTS)
-
-  while run is true do
+  while run is true do:
     zero_update(framebuffer, NIL)
-  end while
-
   zero_close()
-
-end function
 ```
