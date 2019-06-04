@@ -41,7 +41,7 @@ enum {
 // implementation
 
 
-unsigned int fb_texture;
+static GLuint fb_texture, pal_texture;
 static GLFWwindow *window;
 static int width, height, depth, scale;
 static GLuint vertexbuffer;
@@ -50,9 +50,9 @@ static Zero_Handler_Func __event_handler;
 
 
 //static void *active_fb = 0;
-//static void *active_pal = 0;
+static void *active_pal = 0;
 
-void initShaders() {
+GLuint initShaders() {
 	GLuint vertex_id = glCreateShader(GL_VERTEX_SHADER);
 	GLuint fragment_id = glCreateShader(GL_FRAGMENT_SHADER);
 
@@ -74,6 +74,17 @@ void initShaders() {
 		"  outColor = texture2D(texture, uv);"
 		"}";
 
+	const char* fragment_shader_indexed =
+		"#version 400\n"
+		"uniform sampler2D texture;"
+		"uniform sampler1D palette;"
+		"uniform vec2 size;"
+		"out vec4 outColor;"
+		"void main() {"
+		"  vec2 uv = gl_FragCoord.xy / size;"
+		"  uv.y = 1.0 - uv.y;"
+		"  outColor = texture1D(palette, texture2D(texture, uv).r);"
+		"}";
 
 	glShaderSource(vertex_id, 1, &vertex_shader, NULL);
 	glCompileShader(vertex_id);
@@ -87,7 +98,7 @@ void initShaders() {
 		printf("Vertex shader error\n");
 	}
 
-	glShaderSource(fragment_id, 1, &fragment_shader , NULL);
+	glShaderSource(fragment_id, 1, depth == 1 ? &fragment_shader_indexed : &fragment_shader , NULL);
 	glCompileShader(fragment_id);
 
 	glGetShaderiv(fragment_id, GL_COMPILE_STATUS, &result);
@@ -102,28 +113,17 @@ void initShaders() {
 	glLinkProgram(ProgramID);
 	glUseProgram(ProgramID);
 
-	GLint loc = glGetUniformLocation(ProgramID, "size");
-	glUniform2f(loc, width * scale, height * scale);
-
-/*	
-	glGetProgramiv(ProgramID, GL_LINK_STATUS, &result);
-	glGetProgramiv(ProgramID, GL_INFO_LOG_LENGTH, &infoLength);
-	if ( infoLength > 0 ){
-		printf("Program shader error\n");
-	}
 
 	glDetachShader(ProgramID, vertex_id);
 	glDetachShader(ProgramID, fragment_id);
 	
 	glDeleteShader(vertex_id);
 	glDeleteShader(fragment_id);
+
 	return ProgramID;
-*/
 }
-//
 
 GLFWwindow *zero_open(char *title, int w, int h, int d, int s){
-
   width = w;
   height = h;
   depth = d == 1 ? 1 : 4;
@@ -148,7 +148,7 @@ GLFWwindow *zero_open(char *title, int w, int h, int d, int s){
 	glewExperimental = GL_TRUE; 
   if (glewInit() != GLEW_OK) { return 0; }
 
-  initShaders();
+  GLuint program = initShaders();
 
   glClearColor(1.0, 0.0, 0.0, 1.0);
 
@@ -171,22 +171,51 @@ GLFWwindow *zero_open(char *title, int w, int h, int d, int s){
 	glGenTextures(1, &fb_texture);
   glBindTexture(GL_TEXTURE_2D, fb_texture);
 
+
+
+	GLint loc = glGetUniformLocation(program, "size");
+	glUniform2f(loc, width * scale, height * scale);
+
+	glActiveTexture(GL_TEXTURE0 + 0); 
+	glBindTexture(GL_TEXTURE_2D, fb_texture);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-  //glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, checkImageWidth, checkImageHeight,
-  //              0, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);  
+	glUniform1i(glGetUniformLocation(program, "texture"), 0);
 
-  return window;
+
+	if (depth == 1) {
+		glGenTextures(1, &pal_texture);
+		glActiveTexture(GL_TEXTURE0 + 1); 
+		glBindTexture(GL_TEXTURE_1D, pal_texture);
+	  glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	  glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	  glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	  glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glUniform1i(glGetUniformLocation(program, "palette"), 1);
+	}
+
+ return window;
 }
 
 int zero_update(void *fb, void *pal){
 
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	//glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, fb);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, fb);
+	// todo: use glTexSubImage2D instead
+	glBindTexture(GL_TEXTURE_2D, fb_texture);
+	if (depth == 1){
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, width, height, 0, GL_RED, GL_UNSIGNED_BYTE, fb);
+	} else {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, fb);
+	}
+
+	if (pal != NULL){
+		glBindTexture(GL_TEXTURE_1D, pal_texture);
+		glTexImage1D(GL_TEXTURE_1D, 0, GL_RGB, 256, 0, GL_RGB, GL_UNSIGNED_BYTE, pal);
+		active_pal = pal;
+	}
 
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
