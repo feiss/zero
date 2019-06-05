@@ -152,7 +152,7 @@ void main(){
 
 
 ### Drawing
-This is a basic example of a whole functional drawing program in a 500x500 window/canvas for drawing with mouse, and quits with any key. 
+This is a basic pseudocode example of a whole functional drawing program in a 500x500 window/canvas for drawing with mouse, and quits with any key:
 
 ```pascal
 run = true
@@ -176,3 +176,4 @@ function MAIN
     zero_update(framebuffer, NIL)
   zero_close()
 ```
+(you can check out the [Linux OpenGL implementation](https://github.com/feiss/zero/blob/master/src/c/linuxgl/examples/paint.c))
