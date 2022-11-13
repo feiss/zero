@@ -41,13 +41,13 @@ void zero_open(char *device, int *w, int *h, int *d, int s, int *line) {
         exit(3);
     }
 
-    width = *w = vinfo.xres;
-    height = *h = vinfo.yres;
+    width = *w = vinfo.xres_virtual;
+    height = *h = vinfo.yres_virtual;
     depth = *d = vinfo.bits_per_pixel / 8;
     *line = finfo.line_length;
     scale = s <= 0 ? 1 : s;
 
-    screensize = vinfo.xres * vinfo.yres * vinfo.bits_per_pixel / 8;
+    screensize = width * height * vinfo.bits_per_pixel / 8;
 
     fbp = (char *)mmap(0, screensize, PROT_READ | PROT_WRITE, MAP_SHARED, fbfd, 0);
     if (fbp == MAP_FAILED) {
@@ -69,22 +69,6 @@ int zero_update(void *fb, void *pal) {
     *(fbpointer + i + 3) = 0; // no transparency
   }
   return 1;
-
-/*
-  if (vinfo.bits_per_pixel == 32) {
-      *(fbp + location) = 100;        // Some blue
-      *(fbp + location + 1) = 15+(x-100)/2;     // A little green
-      *(fbp + location + 2) = 200-(y-100)/5;    // A lot of red
-      *(fbp + location + 3) = 0;      // No transparency
-//location += 4;
-    } else  { //assume 16bpp
-      int b = 10;
-      int g = (x-100)/6;     // A little green
-      int r = 31-(y-100)/16;    // A lot of red
-      unsigned short int t = r<<11 | g << 5 | b;
-      *((unsigned short int*)(fbp + location)) = t;
-  }
-*/
 }
 
 void zero_close(void){
